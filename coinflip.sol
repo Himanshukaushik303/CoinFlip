@@ -52,30 +52,27 @@ contract CoinFlip {
         return true;       
     }
 
-    // // Using Harmony VRF for random number genration
-    // function vrf() public view returns (bytes32 result) {
-    // uint[1] memory bn;
-    // bn[0] = block.number;
-    // assembly {
-    //   let memPtr := mload(0x40)
-    //   if iszero(staticcall(not(0), 0xff, bn, 0x20, memPtr, 0x20)) {
-    //     invalid()
-    //   }
-    //   result := mload(memPtr)
-    // }
-    // } Remix was not able to detect harmony one wallet. This function was not working with metamask.
-
-    // Return the random number in range [0,mod-1]
-    function randModules(uint mod) public view returns(uint){
-        return uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))) % mod;
+    // Using Harmony VRF for random number genration
+    function vrf() public view returns (bytes32 result) {
+    uint[1] memory bn;
+    bn[0] = block.number;
+    assembly {
+      let memPtr := mload(0x40)
+      if iszero(staticcall(not(0), 0xff, bn, 0x20, memPtr, 0x20)) {
+        invalid()
+      }
+    result := mload(memPtr)
+    }
+    return result;
     }
 
+   
 
 
     // Conclude all bets with win/loss
     function rewardBet() public {
         int outcome = 0;
-        uint randNumber = randModules(10000007);
+        uint randNumber = uint(vrf());
         if(randNumber%2 == 0)
             outcome = 0;
         else 
