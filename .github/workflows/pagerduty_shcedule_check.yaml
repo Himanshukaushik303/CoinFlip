@@ -24,7 +24,7 @@ jobs:
           fi
 
       - name: Comment on PR if pagerduty/schedule.tf is modified
-        if: steps.check-changes.outputs.changes == 'true'
+        if: steps.check-changes.outputs.changes == 'false'
         uses: actions/github-script@v6
         with:
           script: |
