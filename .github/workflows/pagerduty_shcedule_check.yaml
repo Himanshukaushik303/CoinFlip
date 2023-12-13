@@ -1,33 +1,22 @@
 name: Check PagerDuty Schedule Update
 
-on:
-  pull_request:
-    paths:
-      - 'pagerduty/schedule.tf'
-
+on: pull_request
+  
 jobs:
-  check-schedule-update:
+  tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Check for changes in pagerduty/schedule.tf
-        id: check-changes
-        run: |
-         git fetch --unshallow
-          if git diff --name-only origin/${{ github.base_ref }} HEAD | grep 'pagerduty/schedule.tf'; then
-            echo "::set-output name=changes::true"
-          else
-            echo "::set-output name=changes::false"
-          fi
-
-
-      - name: Comment PR
-        if: steps.check-changes.outputs.changes == 'true'
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Changes detected in 'pagerduty/schedule.tf'. Please ensure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/atlan#how-to-run).`;
-
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          pagerduty:
+            - 'pagerduty/schedule.tf'
+            
+    - name: Comment PR
+      if: steps.filter.outputs.pagerduty == 'true'
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          Hello world ! :wave:
