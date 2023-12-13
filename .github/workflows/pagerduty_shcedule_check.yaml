@@ -24,14 +24,10 @@ jobs:
           fi
 
       - name: Comment on PR if pagerduty/schedule.tf is modified
-        if: steps.check-changes.outputs.changes == 'false'
-        uses: actions/github-script@v6
+        if: steps.check-changes.outputs.changes == 'true'
+        uses: actions/github-script@5.2.0
         with:
           script: |
-            console.log('GitHub context:', JSON.stringify(context, null, 2));
-            issue_number = contex.issue_number
-            owner= context.payload.organization.login,
-            repo= context.payload.repository.name,
-            comment = `
-            It seems like there are changes to 'pagerduty/schedule.tf'. Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).`;
-            github.rest.issues.createComment({...repo, issue_number, body: comment});
+            const comment = `
+            Changes detected in 'pagerduty/schedule.tf'. Please ensure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/atlan#how-to-run).`;
+            github.pulls.createReviewComment({...context.repo, pull_number: context.issue.number, body: comment});
