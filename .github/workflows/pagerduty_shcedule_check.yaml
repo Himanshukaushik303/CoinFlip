@@ -1,0 +1,35 @@
+name: Check PagerDuty Schedule Update
+
+on:
+  pull_request:
+    paths:
+      - 'pagerduty/schedule.tf'
+
+jobs:
+  check-schedule-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for changes in pagerduty/schedule.tf
+        id: check-changes
+        run: |
+          if git diff --name-only origin/${{ github.base_ref }} | grep 'pagerduty/schedule.tf'; then
+            echo "::set-output name=changes::true"
+          else
+            echo "::set-output name=changes::false"
+          fi
+
+      - name: Comment on PR if pagerduty/schedule.tf is modified
+        if: steps.check-changes.outputs.changes == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            
+            owner= context.payload.organization.login,
+            repo= context.payload.repository.name,
+            const comment = `
+            It seems like there are changes to 'pagerduty/schedule.tf'. Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).`;
+            github.rest.issues.createComment({...repo, issue_number, body: comment});
