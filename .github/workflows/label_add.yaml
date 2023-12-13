@@ -9,7 +9,6 @@ jobs:
   check_label:
     runs-on: ubuntu-latest
 
-    steps:  
-    - name: Check if specific label added
+  workflow_trigger:  
       if: ${{ github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'automerge') }}
       uses: .github/workflows/pagerduty_shcedule_check.yaml@main
