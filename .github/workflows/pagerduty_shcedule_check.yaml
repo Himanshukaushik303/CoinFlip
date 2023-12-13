@@ -1,4 +1,4 @@
-name: Check PagerDuty Schedule Update
+name: Check_PagerDuty_Schedule_Update
 
 on: pull_request
   
