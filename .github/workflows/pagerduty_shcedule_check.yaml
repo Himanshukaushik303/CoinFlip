@@ -20,3 +20,10 @@ jobs:
       with:
         message: |
           It seems like there are changes to 'pagerduty/schedule.tf'. Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).`;
+    
+    - name: removelabel
+      if: steps.filter.outputs.pagerduty == 'true'
+      uses: buildsville/add-remove-label@v2.0.1
+      with:
+        labels: automerge
+        type: remove
