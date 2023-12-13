@@ -12,4 +12,4 @@ jobs:
     steps:  
     - name: Check if specific label added
       if: ${{ github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'automerge') }}
-      uses: .github/workflows/pagerduty_shcedule_check.yaml@main
+      uses: CoinFlip/main/.github/workflows/pagerduty_shcedule_check.yaml@main
