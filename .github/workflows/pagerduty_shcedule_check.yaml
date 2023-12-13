@@ -19,4 +19,4 @@ jobs:
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Hello world ! :wave:
+          It seems like there are changes to 'pagerduty/schedule.tf'. Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).`;
