@@ -18,9 +18,9 @@ jobs:
         run: |
          git fetch --unshallow
           if git diff --name-only origin/${{ github.base_ref }} HEAD | grep 'pagerduty/schedule.tf'; then
-            echo "::set-output name=changes::true"
+            echo "{changes}={true}" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=changes::false"
+            echo "{changes}={value}" >> $GITHUB_OUTPUT
           fi
 
       - name: Comment on PR if pagerduty/schedule.tf is modified
