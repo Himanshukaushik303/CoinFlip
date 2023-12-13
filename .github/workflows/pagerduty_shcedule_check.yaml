@@ -27,6 +27,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log('GitHub context:', JSON.stringify(context, null, 2));
             issue_number = contex.issue_number
             owner= context.payload.organization.login,
             repo= context.payload.repository.name,
