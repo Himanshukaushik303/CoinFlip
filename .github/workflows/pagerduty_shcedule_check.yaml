@@ -28,6 +28,6 @@ jobs:
         uses: actions/github-script@5.2.0
         with:
           script: |
-            const comment = `
+            comment = `
             Changes detected in 'pagerduty/schedule.tf'. Please ensure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/atlan#how-to-run).`;
             github.pulls.createReviewComment({...context.repo, pull_number: context.issue.number, body: comment});
