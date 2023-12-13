@@ -25,8 +25,9 @@ jobs:
 
       - name: Comment on PR if pagerduty/schedule.tf is modified
         if: steps.check-changes.outputs.changes == 'true'
-        uses: actions/github-script@5.2.0
+        uses: actions/github-script@v5
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             comment = `
             Changes detected in 'pagerduty/schedule.tf'. Please ensure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/atlan#how-to-run).`;
