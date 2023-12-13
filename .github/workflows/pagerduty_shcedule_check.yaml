@@ -31,4 +31,9 @@ jobs:
           script: |
             comment = `
             Changes detected in 'pagerduty/schedule.tf'. Please ensure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/atlan#how-to-run).`;
-            github.pulls.createReviewComment({...context.repo, pull_number: context.issue.number, body: comment});
+             github.rest.issues.createComment({
+                      issue_number: context.issue.number,
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      body: comment
+                    })
