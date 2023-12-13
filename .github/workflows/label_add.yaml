@@ -1,4 +1,4 @@
-name: Label Added Workflow
+name: Label_Add_Check
 
 on:
   pull_request:
@@ -6,20 +6,13 @@ on:
       - labeled
 
 jobs:
-  check_label:
-    runs-on: ubuntu-latest
+    check_label:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Check if specific label added
+        if: ${{ github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'automerge') }}
+        uses: actions/workflow-dispatch@v2
+        with:
+          workflow: pagerduty_shcedule_check.yaml
 
-    steps:
-    - uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          pagerduty:
-            - 'pagerduty/schedule.tf'
-            
-    - name: Check if specific label added
-      if: ${{ github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'automerge') }}
-      uses: andymckay/labeler@master    
-      with:
-        remove-labels: "automerge"
+       
