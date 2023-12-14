@@ -2,7 +2,6 @@ name: Check_PagerDuty_Schedule_Update
 
 on: 
   pull_request:
-    types: [labeled,opened,reopened,synchronize]
   
 jobs:
   tests:
