@@ -2,7 +2,7 @@ name: Check_PagerDuty_Schedule_Update
 
 on: 
   pull_request:
-  workflow_call:
+    types: [labeled,opened,reopened,synchronize]
   
 jobs:
   tests:
@@ -16,15 +16,15 @@ jobs:
           pagerduty:
             - 'pagerduty/schedule.tf'
             
-    - name: Comment PR
+    - name: Comment on PR
       if: steps.filter.outputs.pagerduty == 'true'
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
           It seems like there are changes to 'pagerduty/schedule.tf'. Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).`;
     
-    - name: label remover
-      if: steps.filter.outputs.pagerduty == 'true' || github.event.label.name == 'automerge' && steps.filter.outputs.pagerduty == 'true'
+    - name: Label remover
+      if: steps.filter.outputs.pagerduty == 'true'
       uses: andymckay/labeler@master
       with:
         remove-labels: "automerge"
