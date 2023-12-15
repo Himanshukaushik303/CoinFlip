@@ -28,7 +28,6 @@ jobs:
         if: ${{steps.file_changes.outputs.modified}}
         with:
           script: |
-            echo "${{steps.file_changes.outputs.modified}}"
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
