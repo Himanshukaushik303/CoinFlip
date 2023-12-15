@@ -1,29 +1,21 @@
-name: Check_PagerDuty_Schedule_Update
+name: CheckModifiedFile
 
-on: 
-  pull_request:
-  
+on:
+  pull_request
+
 jobs:
-  tests:
+  check_modifications:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          pagerduty:
-            - 'pagerduty/schedule.tf'
-            
-    - name: Comment on PR
-      if: steps.filter.outputs.pagerduty == 'true'
-      uses: thollander/actions-comment-pull-request@v2
-      with:
-        message: |
-          It seems like there are changes to 'pagerduty/schedule.tf'.
-          Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Himanshukaushik303/CoinFlip/blob/main/README.md#transactions).
-    
-    - name: Label remover
-      if: steps.filter.outputs.pagerduty == 'true'
-      uses: andymckay/labeler@master
-      with:
-        remove-labels: "automerge"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Determine file changes
+        id: file_changes
+        run: |
+          if git diff --name-only origin/${{ github.base_ref }} HEAD | grep -Eq 'pagerduty/schedule.tf' ; then
+          echo "::set-output name=modified::true"
+          else
+          echo "::set-output name=modified::false"
+          fi
