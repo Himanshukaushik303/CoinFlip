@@ -32,5 +32,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Storybook has' 
+              body: 'It seems like there are changes to 'pagerduty/schedule.tf'. \n Please make sure to update the 'rotation_virtual_start' parameter as described in the instructions [here](https://github.com/Sanyaku/sumo-content-management/blob/master/pagerduty/README.md#instructions-for-fixing-schedules-after-an-employee-departure).' 
             })
