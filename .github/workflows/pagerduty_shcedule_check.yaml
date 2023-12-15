@@ -1,4 +1,4 @@
-name: CheckModifiedFile
+name: Check_ModifiedFile
 
 on:
   pull_request
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
+      - name: Checkout pagerduty schedule changes
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
