@@ -9,7 +9,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -34,3 +34,23 @@ jobs:
               repo: context.repo.repo,
               body: 'It seems like there are changes to "pagerduty/schedule.tf".\n' + 'Please make sure to update the "rotation_virtual_start" parameter as described in the instructions [here](https://github.com/Sanyaku/sumo-content-management/blob/master/pagerduty/README.md#instructions-for-fixing-schedules-after-an-employee-departure).' 
             })
+            
+      - name: Remove label from PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: ${{ steps.changed.outputs.issue_number }},
+                name: 'automerge'
+              });
+            } catch (err) {
+              if (err.status === 404 && err.message === "Label does not exist") {
+                console.log("Label not found");
+              } else {
+                throw err;
+              }
+            }
