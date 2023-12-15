@@ -1,3 +1,3 @@
 resource "test" "test" {
-  description = "test4"
+  description = "test2"
   }
