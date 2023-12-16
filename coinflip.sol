@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-//declaring solidity versio
+//declaring solidity version
 pragma solidity >=0.8.0 <0.9.0;
 
 
