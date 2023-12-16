@@ -71,7 +71,7 @@ contract CoinFlip {
 
     // Conclude all bets with win/loss
     function rewardBet() public {
-        int outcome = 0;
+        int outcome = 1;
         uint randNumber = uint(vrf());
         if(randNumber%2 == 0)
             outcome = 0;
