@@ -5,6 +5,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 
 //contract object
+//newc1
 contract CoinFlip {
     int SIZE  = 10;  // Maximum number of users
 
