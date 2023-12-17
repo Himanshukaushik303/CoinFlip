@@ -2,7 +2,7 @@
 ### Coin Flip Contract Task
 
 
-## TestNest Network Details:  
+## TestNest Network Details :  
 
   Network Name : Harmony Testnet  
   RPC URL : https://api.s0.b.hmny.io  
