@@ -1,5 +1,5 @@
 # CoinFlip
-### Coin Flip Contract Tsk
+### Coin Flip Contract Task
 
 
 ## TestNest Network Details:  
