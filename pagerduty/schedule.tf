@@ -1,2 +1,2 @@
 resource "test" "test" {
-  description = "testnewc2"
+  description = "testt c2"
